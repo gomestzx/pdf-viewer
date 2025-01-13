@@ -6,8 +6,8 @@ import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { getUserIdFromToken } from "../hooks/getUserIdFromToken";
 import { CgSoftwareDownload } from "react-icons/cg";
 import { FaReadme } from "react-icons/fa";
-import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
 import { BiZoomIn, BiZoomOut } from "react-icons/bi";
+import AdBanner from "../components/AdBanner";
 
 const PDF_URL =
   "https://firebasestorage.googleapis.com/v0/b/livrosgratuitos-14482.appspot.com/o/pdf%2Fo-pequeno-principe.pdf?alt=media&token=cb7b8f63-e9ac-4154-bc40-2fad4bbec002";
@@ -132,13 +132,19 @@ const Viewer = () => {
               </button>
             </div>
           </header>
-
-          <section className="w-full bg-slate-100 p-4 pb-96 h-full overflow-auto flex justify-center items-start pt-20">
-            <Document file={PDF_URL}>
-              <Page pageNumber={currentPage} scale={zoomLevel} />
-            </Document>
-            <div className="h-[300px]"></div>
-          </section>
+          <div className="pt-16">
+            <AdBanner
+              dataAdFormat="auto"
+              dataAdSlot="2423907456"
+              customClassName="mb-2 mt-4"
+            />
+            <section className="w-full bg-slate-100 p-4 pb-96 h-full overflow-auto flex justify-center items-start ">
+              <Document file={PDF_URL}>
+                <Page pageNumber={currentPage} scale={zoomLevel} />
+              </Document>
+              <div className="h-[300px]"></div>
+            </section>
+          </div>
         </div>
         <div className="absolute bottom-0 left-0 right-0 flex justify-center items-end mb-6 z-50">
           <div className="flex justify-center items-center gap-1 bg-slate-900 rounded-full text-white px-4 py-2">
