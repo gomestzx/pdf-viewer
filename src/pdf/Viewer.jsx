@@ -64,152 +64,174 @@ const Viewer = () => {
   };
 
   return (
-    <div className=" overflow-hidden">
-      <header className=" bg-main-400 h-16 py-2 px-4 flex justify-between items-center">
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap"
-          rel="stylesheet"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
-          rel="stylesheet"
-        ></link>
-        <meta
-          name="google-site-verification"
-          content="KOaKjo4TUKs2O2SdRxRs61dwmfSAe-f-4RvutfYlBnY"
-        />
-        <meta
-          name="google-adsense-account"
-          content="ca-pub-2529229033686497"
-        ></meta>
-        <div className="rounded-lg flex justify-center items-center gap-3">
-          <a href="https://livrosgratuitos.com" className=" cursor-pointer">
-            <img
-              className=" bg-slate-100 p-2 rounded-lg"
-              src="/logo.png"
-              style={{ width: 40, height: 40 }}
-              alt=""
-            />
-          </a>
-          <h1 className="font-normal text-white text-lg font-sans-3">
-            O Pequeno Principe
-          </h1>
-        </div>
+    <>
+      <div className=" overflow-hidden">
+        <header className=" bg-main-400 h-16 py-2 px-4 flex justify-between items-center">
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap"
+            rel="stylesheet"
+          />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+            rel="stylesheet"
+          ></link>
+          <meta
+            name="google-site-verification"
+            content="KOaKjo4TUKs2O2SdRxRs61dwmfSAe-f-4RvutfYlBnY"
+          />
+          <meta
+            name="google-adsense-account"
+            content="ca-pub-2529229033686497"
+          ></meta>
+          <div className="rounded-lg flex justify-center items-center gap-3">
+            <a href="https://livrosgratuitos.com" className=" cursor-pointer">
+              <img
+                className=" bg-slate-100 p-2 rounded-lg"
+                src="/logo.png"
+                style={{ width: 40, height: 40 }}
+                alt=""
+              />
+            </a>
+            <h1 className="font-normal text-white text-lg font-sans-3">
+              O Pequeno Principe
+            </h1>
+          </div>
 
-        <div className=" flex justify-center items-center gap-2">
-          <button
-            onClick={zoomOut}
-            className="bg-white text-main-400 px-3 cursor-pointer py-3 rounded-full flex justify-center items-center gap-2"
-          >
-            <BiZoomOut size={20} />
-          </button>
-          <button
-            onClick={zoomIn}
-            className="bg-white text-main-400 px-3 cursor-pointer py-3 rounded-full flex justify-center items-center gap-2"
-          >
-            <BiZoomIn size={20} />
-          </button>
-          <button className="bg-white text-main-400 px-3 py-3 md:px-4 cursor-pointer md:py-2 rounded-full flex justify-center items-center gap-2">
-            <span className=" hidden md:block">Download</span>
-            <CgSoftwareDownload size={20} />
-          </button>
-          <button className="bg-white text-main-400 px-3 py-3 md:px-4 cursor-pointer md:py-2  rounded-full flex justify-center items-center gap-2">
-            <span className=" hidden md:block">Ler online</span>
-            <FaReadme size={20} />
-          </button>
-        </div>
-      </header>
-      <div className="w-full h-screen justify-start items-start overflow-hidden hidden md:flex">
-        <aside
-          style={{
-            backgroundColor: "#ECEAFF",
-            scrollbarWidth: "thin",
-            scrollbarColor: "#7d7d7d #FFFFFF",
-          }}
-          className={`${
-            isAsideOpen ? "w-60 opacity-100" : "w-0 opacity-0"
-          } h-full transition-all duration-500 ease-in-out overflow-hidden relative`}
-        >
-          <div className="h-full">
-            <Document
-              className="flex flex-col justify-start items-center overflow-auto h-full"
-              file={PDF_URL}
-              onLoadSuccess={handleDocumentLoadSuccess}
-              loading={<></>}
+          <div className=" flex justify-center items-center gap-2">
+            <button
+              onClick={zoomOut}
+              className="bg-white text-main-400 px-3 cursor-pointer py-3 rounded-full flex justify-center items-center gap-2"
             >
-              {Array.from({ length: totalPages }).map((_, index) => {
-                const thumbnailPage = index + 1;
-                return (
-                  <div
-                    key={thumbnailPage}
-                    onClick={() => setCurrentPage(thumbnailPage)}
-                    className={`border-[2px] cursor-pointer relative rounded my-2 ${
-                      currentPage === thumbnailPage ? "border-main-400" : ""
-                    } ${index === 0 && "mt-4"}`}
-                  >
-                    <Page height={180} pageNumber={thumbnailPage} />
-                  </div>
-                );
-              })}
-            </Document>
+              <BiZoomOut size={20} />
+            </button>
+            <button
+              onClick={zoomIn}
+              className="bg-white text-main-400 px-3 cursor-pointer py-3 rounded-full flex justify-center items-center gap-2"
+            >
+              <BiZoomIn size={20} />
+            </button>
+            <button className="bg-white text-main-400 px-3 py-3 md:px-4 cursor-pointer md:py-2 rounded-full flex justify-center items-center gap-2">
+              <span className=" hidden md:block">Download</span>
+              <CgSoftwareDownload size={20} />
+            </button>
+            <button className="bg-white text-main-400 px-3 py-3 md:px-4 cursor-pointer md:py-2  rounded-full flex justify-center items-center gap-2">
+              <span className=" hidden md:block">Ler online</span>
+              <FaReadme size={20} />
+            </button>
           </div>
-        </aside>
-        {isAsideOpen ? (
-          <button
-            onClick={() => setIsAsideOpen(false)}
-            className=" px-1 h-full flex justify-center items-center bg-customLightPurple-200 hover:bg-customLightPurple-300 cursor-pointer"
+        </header>
+        <div className="w-full h-screen flex justify-start items-start overflow-hidden">
+          <aside
+            style={{
+              backgroundColor: "#ECEAFF",
+              scrollbarWidth: "thin",
+              scrollbarColor: "#7d7d7d #FFFFFF",
+            }}
+            className={`${
+              isAsideOpen ? "w-60 opacity-100" : "w-0 opacity-0"
+            } h-full transition-all duration-500 ease-in-out overflow-hidden relative`}
           >
-            <FaChevronLeft size={12} />
-          </button>
-        ) : (
-          <button
-            onClick={() => setIsAsideOpen(true)}
-            className=" px-1 h-full flex justify-center items-center bg-customLightPurple-200 hover:bg-customLightPurple-300 cursor-pointer"
-          >
-            <FaChevronRight size={12} />
-          </button>
-        )}
-
-        <main className="w-full h-full relative">
-          <div className="w-full bg-slate-100 h-full">
-            <AdBanner
-              dataAdFormat="auto"
-              dataAdSlot="2423907456"
-              customClassName="mb-2 pt-2"
-            />
-            <section className="w-full bg-slate-100 p-4 pb-96 h-full overflow-auto flex justify-center items-start">
+            <div className="h-full">
               <Document
+                className="flex flex-col justify-start items-center overflow-auto h-full"
                 file={PDF_URL}
-                loading={<Loading label="Carregando PDF" />}
+                onLoadSuccess={handleDocumentLoadSuccess}
+                loading={<></>}
               >
-                <Page pageNumber={currentPage} scale={zoomLevel} />
+                {Array.from({ length: totalPages }).map((_, index) => {
+                  const thumbnailPage = index + 1;
+                  return (
+                    <div
+                      key={thumbnailPage}
+                      onClick={() => setCurrentPage(thumbnailPage)}
+                      className={`border-[2px] cursor-pointer relative rounded my-2 ${
+                        currentPage === thumbnailPage ? "border-main-400" : ""
+                      } ${index === 0 && "mt-4"}`}
+                    >
+                      <Page height={180} pageNumber={thumbnailPage} />
+                    </div>
+                  );
+                })}
               </Document>
-              <div className="h-[300px]"></div>
-            </section>
-          </div>
-          <div className="absolute bottom-14 left-0 right-0 flex justify-center items-end mb-6 z-50">
-            <div className="flex justify-center items-center gap-1 bg-slate-900 rounded-full text-white px-4 py-2">
-              <FaChevronLeft
-                className="cursor-pointer"
-                onClick={() => changePage("prev")}
-                size={14}
-              />
-
-              <div className="px-3 py-1 rounded">{currentPage}</div>
-              <span>de</span>
-              <div className="px-3 py-1 rounded">{totalPages}</div>
-              <FaChevronRight
-                className="cursor-pointer"
-                onClick={() => changePage("next")}
-                size={14}
-              />
             </div>
-          </div>
-        </main>
+          </aside>
+          {isAsideOpen ? (
+            <button
+              onClick={() => setIsAsideOpen(false)}
+              className=" px-1 h-full justify-center items-center bg-customLightPurple-200 hover:bg-customLightPurple-300 cursor-pointer hidden md:flex"
+            >
+              <FaChevronLeft size={12} />
+            </button>
+          ) : (
+            <button
+              onClick={() => setIsAsideOpen(true)}
+              className=" px-1 h-full hidden md:flex justify-center items-center bg-customLightPurple-200 hover:bg-customLightPurple-300 cursor-pointer"
+            >
+              <FaChevronRight size={12} />
+            </button>
+          )}
+
+          <main className="w-full h-full relative">
+            <div className="w-full bg-slate-100 h-full">
+              <AdBanner
+                dataAdFormat="auto"
+                dataAdSlot="2423907456"
+                customClassName="mb-2 pt-2"
+              />
+              <section className="w-full bg-slate-100 p-4 pb-96 h-full overflow-auto flex justify-center items-start">
+                <Document
+                  file={PDF_URL}
+                  loading={<Loading label="Carregando PDF" />}
+                >
+                  <Page pageNumber={currentPage} scale={zoomLevel} />
+                </Document>
+                <div className="h-[300px]"></div>
+              </section>
+            </div>
+            {/* Absolute desktop */}
+            <div className="absolute bottom-14 left-0 right-0 justify-center items-end mb-6 z-50 hidden md:flex">
+              <div className="flex justify-center items-center gap-1 bg-slate-900 rounded-full text-white px-4 py-2">
+                <FaChevronLeft
+                  className="cursor-pointer"
+                  onClick={() => changePage("prev")}
+                  size={14}
+                />
+
+                <div className="px-3 py-1 rounded">{currentPage}</div>
+                <span>de</span>
+                <div className="px-3 py-1 rounded">{totalPages}</div>
+                <FaChevronRight
+                  className="cursor-pointer"
+                  onClick={() => changePage("next")}
+                  size={14}
+                />
+              </div>
+            </div>
+          </main>
+        </div>
       </div>
-    </div>
+      {/* Absolute mobile */}
+      <div className="absolute bottom-1 left-0 right-0 flex justify-center items-end mb-6 z-50 md:hidden">
+        <div className="flex justify-center items-center gap-1 bg-slate-900 rounded-full text-white px-4 py-2">
+          <FaChevronLeft
+            className="cursor-pointer"
+            onClick={() => changePage("prev")}
+            size={14}
+          />
+
+          <div className="px-3 py-1 rounded">{currentPage}</div>
+          <span>de</span>
+          <div className="px-3 py-1 rounded">{totalPages}</div>
+          <FaChevronRight
+            className="cursor-pointer"
+            onClick={() => changePage("next")}
+            size={14}
+          />
+        </div>
+      </div>
+    </>
   );
 };
 
