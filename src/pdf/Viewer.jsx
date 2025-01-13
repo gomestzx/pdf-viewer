@@ -57,11 +57,18 @@ const Viewer = () => {
 
   return (
     <div className="w-full h-screen flex justify-start items-start overflow-hidden">
-      <aside className="bg-slate-900 px-3 w-60 p-2 h-full hidden md:block">
-        <h2 className="px-2 py-3 text-center font-light text-lg text-white">
+      <aside
+        style={{
+          backgroundColor: "#ECEAFF",
+          scrollbarWidth: "thin",
+          scrollbarColor: "#7d7d7d #FFFFFF",
+        }}
+        className="w-60 h-full hidden md:block pt-16"
+      >
+        <h2 className="  px-2 py-3 text-center font-light text-lg text-black border-b border-white">
           Páginas
         </h2>
-        <div className="h-full">
+        <div className="h-full mt-3">
           <Document
             className="flex flex-col justify-start items-center overflow-auto h-full"
             file={PDF_URL}
@@ -87,7 +94,7 @@ const Viewer = () => {
 
       <main className="w-full h-full relative">
         <div className="w-full bg-slate-100 h-full">
-          <header className=" bg-main-400 h-16 py-2 px-4 flex justify-between items-center">
+          <header className=" fixed top-0 left-0 w-full bg-main-400 h-16 py-2 px-4 flex justify-between items-center">
             <link rel="preconnect" href="https://fonts.googleapis.com" />
             <link
               rel="preconnect"
@@ -98,7 +105,7 @@ const Viewer = () => {
               href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap"
               rel="stylesheet"
             />
-            <h1 className="font-light text-white text-lg">
+            <h1 className="font-normal text-white text-lg">
               O Pequeno Principe
             </h1>
 
@@ -107,7 +114,6 @@ const Viewer = () => {
                 onClick={zoomOut}
                 className="bg-white text-main-400 px-3 cursor-pointer py-3 rounded-full flex justify-center items-center gap-2"
               >
-               
                 <BiZoomOut size={20} />
               </button>
               <button
@@ -121,13 +127,13 @@ const Viewer = () => {
                 <CgSoftwareDownload size={20} />
               </button>
               <button className="bg-white text-main-400 px-3 py-3 md:px-4 cursor-pointer md:py-2  rounded-full flex justify-center items-center gap-2">
-              <span className=" hidden md:block">Ler online</span>
+                <span className=" hidden md:block">Ler online</span>
                 <FaReadme size={20} />
               </button>
             </div>
           </header>
 
-          <section className="w-full bg-slate-100 p-4 pb-96 h-full overflow-auto flex justify-center items-start">
+          <section className="w-full bg-slate-100 p-4 pb-96 h-full overflow-auto flex justify-center items-start pt-20">
             <Document file={PDF_URL}>
               <Page pageNumber={currentPage} scale={zoomLevel} />
             </Document>
