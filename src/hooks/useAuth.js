@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 
 const useAuth = () => {
-  const [isAuth, setIsAuth] = useState<boolean | undefined>(undefined);
+  const [isAuth, setIsAuth] = useState;
 
   useEffect(() => {
     const checkTokenFromCookie = () => {
