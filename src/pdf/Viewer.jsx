@@ -11,6 +11,7 @@ import { BiZoomIn, BiZoomOut } from "react-icons/bi";
 import AdBanner from "../components/AdBanner";
 import { IoDocument } from "react-icons/io5";
 import Loading from "../components/Loading/Loading";
+import { FaCaretLeft } from "react-icons/fa";
 
 const PDF_URL =
   "https://firebasestorage.googleapis.com/v0/b/livrosgratuitos-14482.appspot.com/o/pdf%2Fo-pequeno-principe.pdf?alt=media&token=cb7b8f63-e9ac-4154-bc40-2fad4bbec002";
@@ -117,12 +118,9 @@ const Viewer = () => {
             scrollbarWidth: "thin",
             scrollbarColor: "#7d7d7d #FFFFFF",
           }}
-          className="px-3 w-60 p-2 h-full hidden md:block"
+          className="pl-3 w-60 h-full hidden md:block relative"
         >
-          <h2 className=" px-2 py-3 flex justify-center items-center gap-2 text-center font-light text-base text-black border-b border-white font-sans-3">
-            Páginas <IoDocument />
-          </h2>
-          <div className="h-full mt-3">
+          <div className="h-full">
             <Document
               className="flex flex-col justify-start items-center overflow-auto h-full"
               file={PDF_URL}
@@ -137,7 +135,7 @@ const Viewer = () => {
                     onClick={() => setCurrentPage(thumbnailPage)}
                     className={`border-[2px] cursor-pointer relative rounded my-2 ${
                       currentPage === thumbnailPage ? "border-main-400" : ""
-                    }`}
+                    } ${index === 0 && "mt-4"}`}
                   >
                     <Page height={180} pageNumber={thumbnailPage} />
                   </div>
@@ -146,6 +144,14 @@ const Viewer = () => {
             </Document>
           </div>
         </aside>
+        <div
+          className="h-full px-1 flex justify-center items-center"
+          style={{
+            backgroundColor: "#ECEAFF",
+          }}
+        >
+          <FaCaretLeft />
+        </div>
 
         <main className="w-full h-full relative">
           <div className="w-full bg-slate-100 h-full">
@@ -155,7 +161,10 @@ const Viewer = () => {
               customClassName="mb-2 pt-2"
             />
             <section className="w-full bg-slate-100 p-4 pb-96 h-full overflow-auto flex justify-center items-start">
-              <Document file={PDF_URL} loading={<Loading label="Carregando PDF" />}>
+              <Document
+                file={PDF_URL}
+                loading={<Loading label="Carregando PDF" />}
+              >
                 <Page pageNumber={currentPage} scale={zoomLevel} />
               </Document>
               <div className="h-[300px]"></div>
