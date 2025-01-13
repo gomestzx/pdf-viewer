@@ -5,13 +5,14 @@ import "react-pdf/dist/Page/TextLayer.css";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { getUserIdFromToken } from "../hooks/getUserIdFromToken";
 import { CgSoftwareDownload } from "react-icons/cg";
-import { FaReadme } from "react-icons/fa";
+import { FaChevronRight, FaReadme } from "react-icons/fa";
 import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
 import { BiZoomIn, BiZoomOut } from "react-icons/bi";
 import AdBanner from "../components/AdBanner";
 import { IoDocument } from "react-icons/io5";
 import Loading from "../components/Loading/Loading";
 import { FaCaretLeft } from "react-icons/fa";
+import { FaChevronLeft } from "react-icons/fa";
 
 const PDF_URL =
   "https://firebasestorage.googleapis.com/v0/b/livrosgratuitos-14482.appspot.com/o/pdf%2Fo-pequeno-principe.pdf?alt=media&token=cb7b8f63-e9ac-4154-bc40-2fad4bbec002";
@@ -21,6 +22,7 @@ const Viewer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [zoomLevel, setZoomLevel] = useState(1.0);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAsideOpen, setIsAsideOpen] = useState(true);
 
   useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -118,7 +120,9 @@ const Viewer = () => {
             scrollbarWidth: "thin",
             scrollbarColor: "#7d7d7d #FFFFFF",
           }}
-          className="pl-3 w-60 h-full hidden md:block relative"
+          className={`${
+            isAsideOpen ? "w-60 opacity-100" : "w-0 opacity-0"
+          } h-full transition-all duration-500 ease-in-out overflow-hidden relative`}
         >
           <div className="h-full">
             <Document
@@ -144,14 +148,21 @@ const Viewer = () => {
             </Document>
           </div>
         </aside>
-        <div
-          className="h-full px-1 flex justify-center items-center"
-          style={{
-            backgroundColor: "#ECEAFF",
-          }}
-        >
-          <FaCaretLeft />
-        </div>
+        {isAsideOpen ? (
+          <button
+            onClick={() => setIsAsideOpen(false)}
+            className=" px-1 h-full flex justify-center items-center bg-customLightPurple-200 hover:bg-customLightPurple-300 cursor-pointer"
+          >
+            <FaChevronLeft size={12} />
+          </button>
+        ) : (
+          <button
+            onClick={() => setIsAsideOpen(true)}
+            className=" px-1 h-full flex justify-center items-center bg-customLightPurple-200 hover:bg-customLightPurple-300 cursor-pointer"
+          >
+            <FaChevronRight size={12} />
+          </button>
+        )}
 
         <main className="w-full h-full relative">
           <div className="w-full bg-slate-100 h-full">
@@ -172,16 +183,19 @@ const Viewer = () => {
           </div>
           <div className="absolute bottom-14 left-0 right-0 flex justify-center items-end mb-6 z-50">
             <div className="flex justify-center items-center gap-1 bg-slate-900 rounded-full text-white px-4 py-2">
-              <IoIosArrowBack
+              <FaChevronLeft
                 className="cursor-pointer"
                 onClick={() => changePage("prev")}
+                size={14}
               />
+               
               <div className="px-3 py-1 rounded">{currentPage}</div>
               <span>de</span>
               <div className="px-3 py-1 rounded">{totalPages}</div>
-              <IoIosArrowForward
+              <FaChevronRight
                 className="cursor-pointer"
                 onClick={() => changePage("next")}
+                size={14}
               />
             </div>
           </div>

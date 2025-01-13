@@ -17,6 +17,17 @@ module.exports = {
         dark: {
           background: "#1C2939",
         },
+        customLightPurple: {
+          100: "#F5F5FF", 
+          200: "#ECEAFF", 
+          300: "#DDD6FE",
+          400: "#C4B5FD",
+          500: "#A78BFA",
+          600: "#8B5CF6",
+          700: "#7C3AED",
+          800: "#6D28D9",
+          900: "#5B21B6", 
+        },
       },
       colors: {
         main: {
@@ -36,4 +47,4 @@ module.exports = {
     },
   },
   plugins: [],
-}
+};
