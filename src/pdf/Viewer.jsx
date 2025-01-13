@@ -10,6 +10,7 @@ import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
 import { BiZoomIn, BiZoomOut } from "react-icons/bi";
 import AdBanner from "../components/AdBanner";
 import { IoDocument } from "react-icons/io5";
+import Loading from "../components/Loading/Loading";
 
 const PDF_URL =
   "https://firebasestorage.googleapis.com/v0/b/livrosgratuitos-14482.appspot.com/o/pdf%2Fo-pequeno-principe.pdf?alt=media&token=cb7b8f63-e9ac-4154-bc40-2fad4bbec002";
@@ -18,6 +19,7 @@ const Viewer = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [zoomLevel, setZoomLevel] = useState(1.0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -39,14 +41,15 @@ const Viewer = () => {
   const handleDocumentLoadSuccess = (document) => {
     console.log("PDF loaded: ", document.numPages);
     setTotalPages(document.numPages);
+    setIsLoading(false);
   };
 
   const zoomIn = () => {
-    setZoomLevel((prevZoom) => Math.min(prevZoom + 0.2, 3)); // Limite máximo de zoom: 3x
+    setZoomLevel((prevZoom) => Math.min(prevZoom + 0.2, 3));
   };
 
   const zoomOut = () => {
-    setZoomLevel((prevZoom) => Math.max(prevZoom - 0.2, 0.5)); // Limite mínimo de zoom: 0.5x
+    setZoomLevel((prevZoom) => Math.max(prevZoom - 0.2, 0.5));
   };
 
   const changePage = (direction) => {
@@ -79,7 +82,9 @@ const Viewer = () => {
               alt=""
             />
           </a>
-          <h1 className="font-normal text-white text-lg font-sans-3">O Pequeno Principe</h1>
+          <h1 className="font-normal text-white text-lg font-sans-3">
+            O Pequeno Principe
+          </h1>
         </div>
 
         <div className=" flex justify-center items-center gap-2">
@@ -122,6 +127,7 @@ const Viewer = () => {
               className="flex flex-col justify-start items-center overflow-auto h-full"
               file={PDF_URL}
               onLoadSuccess={handleDocumentLoadSuccess}
+              loading={<></>}
             >
               {Array.from({ length: totalPages }).map((_, index) => {
                 const thumbnailPage = index + 1;
@@ -149,7 +155,7 @@ const Viewer = () => {
               customClassName="mb-2 pt-2"
             />
             <section className="w-full bg-slate-100 p-4 pb-96 h-full overflow-auto flex justify-center items-start">
-              <Document file={PDF_URL}>
+              <Document file={PDF_URL} loading={<Loading label="Carregando PDF" />}>
                 <Page pageNumber={currentPage} scale={zoomLevel} />
               </Document>
               <div className="h-[300px]"></div>
