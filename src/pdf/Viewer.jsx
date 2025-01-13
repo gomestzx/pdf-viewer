@@ -9,6 +9,7 @@ import { FaReadme } from "react-icons/fa";
 import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
 import { BiZoomIn, BiZoomOut } from "react-icons/bi";
 import AdBanner from "../components/AdBanner";
+import { IoDocument } from "react-icons/io5";
 
 const PDF_URL =
   "https://firebasestorage.googleapis.com/v0/b/livrosgratuitos-14482.appspot.com/o/pdf%2Fo-pequeno-principe.pdf?alt=media&token=cb7b8f63-e9ac-4154-bc40-2fad4bbec002";
@@ -65,7 +66,21 @@ const Viewer = () => {
           href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap"
           rel="stylesheet"
         />
-        <h1 className="font-normal text-white text-lg">O Pequeno Principe</h1>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
+          rel="stylesheet"
+        ></link>
+        <div className="rounded-lg flex justify-center items-center gap-3">
+          <a href="https://livrosgratuitos.com" className=" cursor-pointer">
+            <img
+              className=" bg-slate-100 p-2 rounded-lg"
+              src="/logo.png"
+              style={{ width: 40, height: 40 }}
+              alt=""
+            />
+          </a>
+          <h1 className="font-normal text-white text-lg font-sans-3">O Pequeno Principe</h1>
+        </div>
 
         <div className=" flex justify-center items-center gap-2">
           <button
@@ -99,8 +114,8 @@ const Viewer = () => {
           }}
           className="px-3 w-60 p-2 h-full hidden md:block"
         >
-          <h2 className=" px-2 py-3 text-center font-light text-lg text-black border-b border-white">
-            Páginas
+          <h2 className=" px-2 py-3 flex justify-center items-center gap-2 text-center font-light text-base text-black border-b border-white font-sans-3">
+            Páginas <IoDocument />
           </h2>
           <div className="h-full mt-3">
             <Document
