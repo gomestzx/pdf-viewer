@@ -76,6 +76,8 @@ const Viewer = () => {
           href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap"
           rel="stylesheet"
         ></link>
+         <meta name="google-site-verification" content="KOaKjo4TUKs2O2SdRxRs61dwmfSAe-f-4RvutfYlBnY" />
+         <meta name="google-adsense-account" content="ca-pub-2529229033686497"></meta>
         <div className="rounded-lg flex justify-center items-center gap-3">
           <a href="https://livrosgratuitos.com" className=" cursor-pointer">
             <img
