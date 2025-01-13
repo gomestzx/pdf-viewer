@@ -3,10 +3,13 @@ import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
+import useAuth from "../hooks/useAuth";
 
-const PDF_URL = "https://firebasestorage.googleapis.com/v0/b/livrosgratuitos-14482.appspot.com/o/pdf%2Fo-pequeno-principe.pdf?alt=media&token=cb7b8f63-e9ac-4154-bc40-2fad4bbec002";
+const PDF_URL =
+  "https://firebasestorage.googleapis.com/v0/b/livrosgratuitos-14482.appspot.com/o/pdf%2Fo-pequeno-principe.pdf?alt=media&token=cb7b8f63-e9ac-4154-bc40-2fad4bbec002";
 
 const Viewer = () => {
+  const { isAuth } = useAuth();
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -31,6 +34,7 @@ const Viewer = () => {
       {/* Header */}
       <header className="bg-blue-600 text-white h-16 px-6 flex justify-between items-center shadow-md">
         <h1 className="font-semibold text-lg">O Pequeno Príncipe</h1>
+        {isAuth && <p>auth</p>}
         <div className="flex items-center gap-3">
           <IoIosArrowBack
             className="cursor-pointer text-xl hover:text-blue-300"
@@ -66,7 +70,9 @@ const Viewer = () => {
                   key={thumbnailPage}
                   onClick={() => setCurrentPage(thumbnailPage)}
                   className={`cursor-pointer border-2 rounded-lg overflow-hidden ${
-                    currentPage === thumbnailPage ? "border-blue-600" : "border-gray-300"
+                    currentPage === thumbnailPage
+                      ? "border-blue-600"
+                      : "border-gray-300"
                   }`}
                 >
                   <Page pageNumber={thumbnailPage} height={100} />

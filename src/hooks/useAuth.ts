@@ -1,0 +1,21 @@
+import { useState, useEffect } from "react";
+
+const useAuth = () => {
+  const [isAuth, setIsAuth] = useState<boolean | undefined>(undefined);
+
+  useEffect(() => {
+    const checkTokenFromCookie = () => {
+      if (typeof document !== "undefined") {
+        const cookies = document.cookie.split("; ");
+        const userToken = cookies.find((cookie) => cookie.startsWith("userToken="));
+        setIsAuth(userToken !== undefined);
+      }
+    };
+
+    checkTokenFromCookie();
+  }, []);
+
+  return isAuth;
+};
+
+export default useAuth;
