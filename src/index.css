@@ -3,5 +3,9 @@
 @tailwind utilities;
 
 * {
- font-family: "Lexend";
+    font-family: "Lexend";
+}
+
+body {
+    overflow: hidden;
 }
