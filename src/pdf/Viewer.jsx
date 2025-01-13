@@ -3,13 +3,12 @@ import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
-import useAuth from "../hooks/useAuth.js";
+import getUserIdFromToken from '../hooks/getUserIdFromToken'
 
 const PDF_URL =
   "https://firebasestorage.googleapis.com/v0/b/livrosgratuitos-14482.appspot.com/o/pdf%2Fo-pequeno-principe.pdf?alt=media&token=cb7b8f63-e9ac-4154-bc40-2fad4bbec002";
 
 const Viewer = () => {
-  const isAuth = useAuth();
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -17,51 +16,43 @@ const Viewer = () => {
     pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
   }, []);
 
+  useEffect(() => {
+    const fetchUserId = async () => {
+      const userId = await getUserIdFromToken();
+      if (userId) {
+        console.log("ID do usuário encontrado:", userId);
+      } else {
+        console.log("Nenhum ID de usuário encontrado.");
+      }
+    };
+
+    fetchUserId();
+  }, []);
+
   const handleDocumentLoadSuccess = (document) => {
+    console.log("PDF loaded: ", document.numPages);
     setTotalPages(document.numPages);
   };
 
   const changePage = (direction) => {
     if (direction === "prev") {
-      setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+      setCurrentPage((prevPage) => prevPage - 1);
     } else if (direction === "next") {
-      setCurrentPage((prevPage) => Math.min(prevPage + 1, totalPages));
+      setCurrentPage((prevPage) => prevPage + 1);
     }
   };
 
   return (
-    <div className="w-full h-screen flex flex-col bg-gray-50">
-      {/* Header */}
-      <header className="bg-blue-600 text-white h-16 px-6 flex justify-between items-center shadow-md">
-        {isAuth && <h1 className="font-semibold text-lg">O Pequeno Príncipe</h1>}
-        {isAuth && <p>auth</p>}
-        <div className="flex items-center gap-3">
-          <IoIosArrowBack
-            className="cursor-pointer text-xl hover:text-blue-300"
-            onClick={() => changePage("prev")}
-          />
-          <span className="text-base">
-            Página {currentPage} de {totalPages}
-          </span>
-          <IoIosArrowForward
-            className="cursor-pointer text-xl hover:text-blue-300"
-            onClick={() => changePage("next")}
-          />
-        </div>
-        <button className="bg-blue-500 px-5 py-2 rounded-lg shadow hover:bg-blue-400 transition">
-          Baixar
-        </button>
-      </header>
-
-      {/* Conteúdo Principal */}
-      <div className="flex flex-1">
-        {/* Painel Lateral (Miniaturas) */}
-        <aside className="w-64 bg-gray-100 border-r shadow-md overflow-y-auto p-4">
-          <h2 className="text-lg font-semibold text-center mb-4">Miniaturas</h2>
+    <div className="w-full h-screen flex justify-start items-start overflow-hidden">
+      <aside className="border-r-2 border-gray-400 px-3 w-60 p-2 h-full">
+        <h2 className="px-2 py-3 border-b-2 text-center font-semibold text-lg">
+          Documents
+        </h2>
+        <div className="h-full">
           <Document
+            className="flex flex-col justify-start items-center overflow-auto h-full"
             file={PDF_URL}
             onLoadSuccess={handleDocumentLoadSuccess}
-            className="space-y-4"
           >
             {Array.from({ length: totalPages }).map((_, index) => {
               const thumbnailPage = index + 1;
@@ -69,26 +60,48 @@ const Viewer = () => {
                 <div
                   key={thumbnailPage}
                   onClick={() => setCurrentPage(thumbnailPage)}
-                  className={`cursor-pointer border-2 rounded-lg overflow-hidden ${
-                    currentPage === thumbnailPage
-                      ? "border-blue-600"
-                      : "border-gray-300"
+                  className={`border-[4px] cursor-pointer relative rounded my-2 ${
+                    currentPage === thumbnailPage ? "border-green-700" : ""
                   }`}
                 >
-                  <Page pageNumber={thumbnailPage} height={100} />
+                  <Page height={180} pageNumber={thumbnailPage} />
                 </div>
               );
             })}
           </Document>
-        </aside>
+        </div>
+      </aside>
 
-        {/* Área do PDF */}
-        <main className="flex-1 p-6 bg-white overflow-auto shadow-inner">
-          <Document file={PDF_URL}>
-            <Page pageNumber={currentPage} />
-          </Document>
-        </main>
-      </div>
+      <main className="w-full h-full">
+        <div className="w-full bg-slate-100 h-full">
+          <header className="bg-white h-16 py-2 px-4 flex justify-between items-center">
+            <h1 className="font-semibold text-lg">Pdf File Name</h1>
+            <div className="flex justify-center items-center gap-1">
+              <IoIosArrowBack
+                className="cursor-pointer"
+                onClick={() => changePage("prev")}
+              />
+              <div className="px-3 py-1 rounded">{currentPage}</div>
+              <span>of</span>
+              <div className="px-3 py-1 rounded">{totalPages}</div>
+              <IoIosArrowForward
+                className="cursor-pointer"
+                onClick={() => changePage("next")}
+              />
+            </div>
+            <button className="bg-black text-white px-6 cursor-pointer py-2 rounded">
+              Download
+            </button>
+          </header>
+
+          <section className="w-full bg-slate-100 p-4 pb-96 h-full overflow-auto flex justify-center items-start">
+            <Document file={PDF_URL}>
+              <Page pageNumber={currentPage} />
+            </Document>
+            <div className="h-[300px]"></div>
+          </section>
+        </div>
+      </main>
     </div>
   );
 };
