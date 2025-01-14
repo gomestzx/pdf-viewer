@@ -20,7 +20,7 @@ const Viewer = () => {
   const [zoomLevel, setZoomLevel] = useState(0.75);
   const [isAsideOpen, setIsAsideOpen] = useState(true);
 
-  const isMobile = useIsMobile()
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -40,10 +40,10 @@ const Viewer = () => {
   }, []);
 
   useEffect(() => {
-    if(isMobile) {
+    if (isMobile) {
       setZoomLevel(0.5);
     }
-  }, [isMobile])
+  }, [isMobile]);
 
   const handleDocumentLoadSuccess = (document) => {
     console.log("PDF loaded: ", document.numPages);
@@ -56,7 +56,7 @@ const Viewer = () => {
 
   const zoomOut = () => {
     setZoomLevel((prevZoom) => Math.max(prevZoom - 0.2, 0.5));
-    console.log(zoomLevel)
+    console.log(zoomLevel);
   };
 
   const changePage = (direction) => {
@@ -122,13 +122,16 @@ const Viewer = () => {
               >
                 <BiZoomIn size={20} />
               </button>
-              
             </div>
-            <button className=" bg-black text-white px-2 py-2 cursor-pointer rounded-full flex justify-center items-center gap-2 md:ml-4">
+            <button className=" bg-customOrange hover:bg-customOrange hover:text-white md:bg-transparent border-2 border-customOrange text-white md:text-customOrange px-2 py-2 md:px-4 cursor-pointer rounded-full flex justify-center items-center gap-2 md:ml-4">
+              <span className=" hidden md:block font-normal">Download</span>
               <CgSoftwareDownload size={20} />
             </button>
-            <button className="bg-main-400 text-white px-2 py-2 md:px-4 cursor-pointer md:py-2  rounded-full flex justify-center items-center gap-2">
-              <span className=" hidden md:block">Ler online</span>
+            <button
+              className="  bg-main-400 hover:bg-main-400 hover:text-white md:bg-transparent border-2 border-main-400 text-white
+             md:text-main-400  px-2 py-2 md:px-4 cursor-pointer  rounded-full flex justify-center items-center gap-2"
+            >
+              <span className=" hidden md:block font-normal">Ler online</span>
               <FaReadme size={20} />
             </button>
           </div>

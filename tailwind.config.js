@@ -28,6 +28,7 @@ module.exports = {
           800: "#6D28D9",
           900: "#5B21B6",
         },
+        customOrange: '#EB5A3C',
       },
       colors: {
         main: {
@@ -54,6 +55,7 @@ module.exports = {
           800: "#6D28D9",
           900: "#5B21B6",
         },
+        customOrange: '#EB5A3C',
       },
     },
   },
