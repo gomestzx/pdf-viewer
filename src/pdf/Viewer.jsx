@@ -66,7 +66,7 @@ const Viewer = () => {
   return (
     <>
       <div className=" overflow-hidden">
-        <header className=" bg-main-400 h-16 py-2 px-4 flex justify-between items-center">
+        <header className=" bg-white h-16 py-2 px-4 flex justify-between items-center">
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
           <link
@@ -99,29 +99,31 @@ const Viewer = () => {
                 alt=""
               />
             </a>
-            <h1 className="font-normal text-white text-lg font-sans-3">
+            <h1 className="font-normal text-black text-lg font-sans-3">
               O Pequeno Principe
             </h1>
           </div>
 
           <div className=" flex justify-center items-center gap-2">
-            <button
-              onClick={zoomOut}
-              className="bg-white text-main-400 px-3 cursor-pointer py-3 rounded-full flex justify-center items-center gap-2"
-            >
-              <BiZoomOut size={20} />
-            </button>
-            <button
-              onClick={zoomIn}
-              className="bg-white text-main-400 px-3 cursor-pointer py-3 rounded-full flex justify-center items-center gap-2"
-            >
-              <BiZoomIn size={20} />
-            </button>
-            <button className="bg-white text-main-400 px-3 py-3 md:px-4 cursor-pointer md:py-2 rounded-full flex justify-center items-center gap-2">
-              <span className=" hidden md:block">Download</span>
+            <div className=" flex justify-center items-center md:gap-2 border-r border-customLightPurple-300 md:pr-2">
+              <button
+                onClick={zoomOut}
+                className=" text-black px-3 cursor-pointer py-3 rounded-full flex justify-center items-center gap-2"
+              >
+                <BiZoomOut size={20} />
+              </button>
+              <button
+                onClick={zoomIn}
+                className=" text-black px-3 cursor-pointer py-3 rounded-full flex justify-center items-center gap-2"
+              >
+                <BiZoomIn size={20} />
+              </button>
+              
+            </div>
+            <button className=" bg-black text-white px-2 py-2 cursor-pointer rounded-full flex justify-center items-center gap-2 md:ml-4">
               <CgSoftwareDownload size={20} />
             </button>
-            <button className="bg-white text-main-400 px-3 py-3 md:px-4 cursor-pointer md:py-2  rounded-full flex justify-center items-center gap-2">
+            <button className="bg-main-400 text-white px-2 py-2 md:px-4 cursor-pointer md:py-2  rounded-full flex justify-center items-center gap-2">
               <span className=" hidden md:block">Ler online</span>
               <FaReadme size={20} />
             </button>
@@ -136,7 +138,7 @@ const Viewer = () => {
             }}
             className={`${
               isAsideOpen ? "w-60 opacity-100" : "w-0 opacity-0"
-            } h-full transition-all duration-500 ease-in-out overflow-hidden relative`}
+            } h-full transition-all duration-500 ease-in-out overflow-hidden relative hidden md:block`}
           >
             <div className="h-full">
               <Document
