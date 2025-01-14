@@ -2,17 +2,14 @@ import React, { useEffect, useState } from "react";
 import { pdfjs, Document, Page } from "react-pdf";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
-import { IoIosArrowForward, IoIosArrowBack } from "react-icons/io";
 import { getUserIdFromToken } from "../hooks/getUserIdFromToken";
 import { CgSoftwareDownload } from "react-icons/cg";
 import { FaChevronRight, FaReadme } from "react-icons/fa";
-import { AiOutlineZoomIn, AiOutlineZoomOut } from "react-icons/ai";
 import { BiZoomIn, BiZoomOut } from "react-icons/bi";
 import AdBanner from "../components/AdBanner";
-import { IoDocument } from "react-icons/io5";
 import Loading from "../components/Loading/Loading";
-import { FaCaretLeft } from "react-icons/fa";
 import { FaChevronLeft } from "react-icons/fa";
+import useIsMobile from "../hooks/useIsMobile";
 
 const PDF_URL =
   "https://firebasestorage.googleapis.com/v0/b/livrosgratuitos-14482.appspot.com/o/pdf%2Fo-pequeno-principe.pdf?alt=media&token=cb7b8f63-e9ac-4154-bc40-2fad4bbec002";
@@ -20,9 +17,10 @@ const PDF_URL =
 const Viewer = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [zoomLevel, setZoomLevel] = useState(1.0);
-  const [isLoading, setIsLoading] = useState(true);
+  const [zoomLevel, setZoomLevel] = useState(0.75);
   const [isAsideOpen, setIsAsideOpen] = useState(true);
+
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     pdfjs.GlobalWorkerOptions.workerSrc = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -41,10 +39,15 @@ const Viewer = () => {
     fetchUserId();
   }, []);
 
+  useEffect(() => {
+    if(isMobile) {
+      setZoomLevel(0.5);
+    }
+  }, [isMobile])
+
   const handleDocumentLoadSuccess = (document) => {
     console.log("PDF loaded: ", document.numPages);
     setTotalPages(document.numPages);
-    setIsLoading(false);
   };
 
   const zoomIn = () => {
@@ -53,6 +56,7 @@ const Viewer = () => {
 
   const zoomOut = () => {
     setZoomLevel((prevZoom) => Math.max(prevZoom - 0.2, 0.5));
+    console.log(zoomLevel)
   };
 
   const changePage = (direction) => {
