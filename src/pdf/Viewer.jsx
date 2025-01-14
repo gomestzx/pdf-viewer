@@ -103,7 +103,7 @@ const Viewer = () => {
                 alt=""
               />
             </a>
-            <h1 className="font-normal text-black text-lg font-sans-3">
+            <h1 className="font-normal text-black text-lg font-sans-3 hidden md:block">
               O Pequeno Principe
             </h1>
           </div>
