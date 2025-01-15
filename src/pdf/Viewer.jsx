@@ -10,6 +10,8 @@ import AdBanner from "../components/AdBanner";
 import Loading from "../components/Loading/Loading";
 import { FaChevronLeft } from "react-icons/fa";
 import useIsMobile from "../hooks/useIsMobile";
+import { useSearchParams } from "react-router-dom";
+import { useFetchBook } from "../hooks/useFetchBook";
 
 const PDF_URL =
   "https://firebasestorage.googleapis.com/v0/b/livrosgratuitos-14482.appspot.com/o/pdf%2Fo-pequeno-principe.pdf?alt=media&token=cb7b8f63-e9ac-4154-bc40-2fad4bbec002";
@@ -19,6 +21,7 @@ const Viewer = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [zoomLevel, setZoomLevel] = useState(0.75);
   const [isAsideOpen, setIsAsideOpen] = useState(true);
+  const [urlPdf, setUrlPdf] = useState(PDF_URL);
 
   const isMobile = useIsMobile();
 
@@ -67,6 +70,17 @@ const Viewer = () => {
     }
   };
 
+  const [searchParams] = useSearchParams();
+  const bookId = searchParams.get("livro");
+
+  const { book, isLoading } = useFetchBook(bookId ?? "");
+
+  useEffect(() => {
+    if (book && book.pdf !== "") {
+      setUrlPdf(book.pdf ?? PDF_URL); // Usa um PDF padrão se o PDF do livro não estiver definido
+    }
+  }, [book]);
+
   return (
     <>
       <div className=" overflow-hidden">
@@ -104,7 +118,7 @@ const Viewer = () => {
               />
             </a>
             <h1 className="font-normal text-black text-lg font-sans-3 hidden md:block">
-              O Pequeno Principe
+              {book ? book.titulo : "O Pequeno Príncipe"}
             </h1>
           </div>
 
@@ -150,7 +164,7 @@ const Viewer = () => {
             <div className="h-full">
               <Document
                 className="flex flex-col justify-start items-center overflow-auto h-full"
-                file={PDF_URL}
+                file={urlPdf}
                 onLoadSuccess={handleDocumentLoadSuccess}
                 loading={<></>}
               >
@@ -196,7 +210,7 @@ const Viewer = () => {
               />
               <section className="w-full bg-slate-100 p-4 pb-96 h-full overflow-auto flex justify-center items-start">
                 <Document
-                  file={PDF_URL}
+                  file={urlPdf}
                   loading={<Loading label="Carregando PDF" />}
                 >
                   <Page pageNumber={currentPage} scale={zoomLevel} />
