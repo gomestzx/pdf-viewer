@@ -14,6 +14,7 @@ import { useSearchParams } from "react-router-dom";
 import { useFetchBook } from "../hooks/useFetchBook";
 import AdBannerVertical from "../components/Loading/AdBannerVertical";
 import SEO from "../components/SEO";
+import AdBannerMobile from "../components/AdBanner/AdBannerMobile";
 
 const PDF_URL =
   "https://firebasestorage.googleapis.com/v0/b/livrosgratuitos-14482.appspot.com/o/pdf%2Fo-pequeno-principe.pdf?alt=media&token=cb7b8f63-e9ac-4154-bc40-2fad4bbec002";
@@ -116,9 +117,7 @@ const Viewer = () => {
       <SEO
         title={book ? book.titulo : ""}
         description={
-          book
-            ? `${book.description}`
-            : "Leia livros gratuitos em nosso site."
+          book ? `${book.description}` : "Leia livros gratuitos em nosso site."
         }
         image={book?.capa}
         shouldIndexPage={true}
@@ -251,13 +250,20 @@ const Viewer = () => {
 
           <main className="w-full h-full relative">
             <div className="w-full bg-slate-100 h-full">
-              {/* {JSON.stringify(book)} */}
               <section className="w-full bg-slate-100 p-4 pb-96 h-full overflow-auto ">
                 <AdBanner
                   dataAdFormat="auto"
                   dataAdSlot="9774541568"
                   customClassName="mb-2 pt-2"
                 />
+
+                {isMobile && (
+                  <AdBannerMobile
+                    dataAdSlot="6603126932"
+                    customClassName="mb-3"
+                  />
+                )}
+
                 <div className="flex justify-center items-center">
                   <AdBannerVertical dataAdSlot="" />
                   <Document
@@ -268,6 +274,7 @@ const Viewer = () => {
                   </Document>
                   <AdBannerVertical dataAdSlot="3432494495" />
                 </div>
+                <AdBanner dataAdSlot="4793677624" customClassName="mt-2" />
                 <div className="h-[300px]"></div>
               </section>
             </div>
