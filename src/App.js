@@ -7,7 +7,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Viewer />} />
-        <Route path="/pdf" element={<Viewer />} />
+        <Route path="/livro" element={<Viewer />} />
       </Routes>
     </Router>
   );

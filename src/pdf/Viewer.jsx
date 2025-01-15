@@ -71,7 +71,7 @@ const Viewer = () => {
   };
 
   const [searchParams] = useSearchParams();
-  const bookId = searchParams.get("livro");
+  const bookId = searchParams.get("id");
 
   const { book, isLoading } = useFetchBook(bookId ?? "");
 
@@ -141,13 +141,18 @@ const Viewer = () => {
               <span className=" hidden md:block font-normal">Download</span>
               <CgSoftwareDownload size={20} />
             </button>
-            <button
-              className="  bg-main-400 hover:bg-main-400 hover:text-white md:bg-transparent border-2 border-main-400 text-white
+            {book && book._id && (
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href={`https://livrosgratuitos.com/livro?bookId=${book._id}`}
+                className="  bg-main-400 hover:bg-main-400 hover:text-white md:bg-transparent border-2 border-main-400 text-white
              md:text-main-400  px-2 py-2 md:px-4 cursor-pointer  rounded-full flex justify-center items-center gap-2"
-            >
-              <span className=" hidden md:block font-normal">Ler online</span>
-              <FaReadme size={20} />
-            </button>
+              >
+                <span className=" hidden md:block font-normal">Ler online</span>
+                <FaReadme size={20} />
+              </a>
+            )}
           </div>
         </header>
         <div className="w-full h-screen flex justify-start items-start overflow-hidden">
@@ -208,6 +213,7 @@ const Viewer = () => {
                 dataAdSlot="2423907456"
                 customClassName="mb-2 pt-2"
               />
+              {/* {JSON.stringify(book)} */}
               <section className="w-full bg-slate-100 p-4 pb-96 h-full overflow-auto flex justify-center items-start">
                 <Document
                   file={urlPdf}

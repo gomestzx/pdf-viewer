@@ -10,7 +10,9 @@ export const useFetchBook = (id) => {
   const fetchBook = async () => {
     setIsLoading(true);
     try {
-      const token = await localStorage.getItem("userToken");
+      if (!id) return null;
+      const cookies = document.cookie.split("; ");
+      const token = cookies.find((cookie) => cookie.startsWith("userToken="));
       const userId = await getUserIdFromToken();
       const url = token
         ? `${urlApi}/livros/${id}/${userId}`
