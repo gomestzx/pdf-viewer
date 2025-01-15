@@ -77,9 +77,37 @@ const Viewer = () => {
 
   useEffect(() => {
     if (book && book.pdf !== "") {
-      setUrlPdf(book.pdf ?? PDF_URL); // Usa um PDF padrão se o PDF do livro não estiver definido
+      setUrlPdf(book.pdf ?? PDF_URL);
     }
   }, [book]);
+
+  const handleDownload = async () => {
+    try {
+      if (!urlPdf) {
+        console.error("Nenhum URL para download disponível.");
+        return;
+      }
+      
+      const response = await fetch(urlPdf);
+
+      if (!response.ok) {
+        throw new Error(`Erro ao baixar o PDF: ${response.statusText}`);
+      }
+
+      const blob = await response.blob();
+
+      const blobUrl = window.URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = book ? `${book.titulo}.pdf` : "livro.pdf";
+      link.click();
+
+      window.URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Erro ao baixar o PDF:", error);
+    }
+  };
 
   return (
     <>
@@ -137,7 +165,10 @@ const Viewer = () => {
                 <BiZoomIn size={20} />
               </button>
             </div>
-            <button className=" bg-customOrange hover:bg-customOrange hover:text-white md:bg-transparent border-2 border-customOrange text-white md:text-customOrange px-2 py-2 md:px-4 cursor-pointer rounded-full flex justify-center items-center gap-2 md:ml-4">
+            <button
+              onClick={handleDownload}
+              className=" bg-customOrange hover:bg-customOrange hover:text-white md:bg-transparent border-2 border-customOrange text-white md:text-customOrange px-2 py-2 md:px-4 cursor-pointer rounded-full flex justify-center items-center gap-2 md:ml-4"
+            >
               <span className=" hidden md:block font-normal">Download</span>
               <CgSoftwareDownload size={20} />
             </button>
