@@ -66,8 +66,11 @@ const Viewer = () => {
 
   const changePage = (direction) => {
     if (direction === "prev") {
+      if (currentPage === 1) return null;
       setCurrentPage((prevPage) => prevPage - 1);
     } else if (direction === "next") {
+
+      if (currentPage === totalPages) return null;
       setCurrentPage((prevPage) => prevPage + 1);
     }
   };
@@ -75,7 +78,7 @@ const Viewer = () => {
   const [searchParams] = useSearchParams();
   const bookId = searchParams.get("id");
 
-  const { book, isLoading } = useFetchBook(bookId ?? "");
+  const { book } = useFetchBook(bookId ?? "");
 
   useEffect(() => {
     if (book && book.pdf !== "") {
