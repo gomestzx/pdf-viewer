@@ -12,6 +12,8 @@ import { FaChevronLeft } from "react-icons/fa";
 import useIsMobile from "../hooks/useIsMobile";
 import { useSearchParams } from "react-router-dom";
 import { useFetchBook } from "../hooks/useFetchBook";
+import AdBannerVertical from "../components/Loading/AdBannerVertical";
+import SEO from "../components/SEO";
 
 const PDF_URL =
   "https://firebasestorage.googleapis.com/v0/b/livrosgratuitos-14482.appspot.com/o/pdf%2Fo-pequeno-principe.pdf?alt=media&token=cb7b8f63-e9ac-4154-bc40-2fad4bbec002";
@@ -19,7 +21,7 @@ const PDF_URL =
 const Viewer = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
-  const [zoomLevel, setZoomLevel] = useState(0.75);
+  const [zoomLevel, setZoomLevel] = useState(1);
   const [isAsideOpen, setIsAsideOpen] = useState(true);
   const [urlPdf, setUrlPdf] = useState(PDF_URL);
 
@@ -87,7 +89,7 @@ const Viewer = () => {
         console.error("Nenhum URL para download disponível.");
         return;
       }
-      
+
       const response = await fetch(urlPdf);
 
       if (!response.ok) {
@@ -111,6 +113,16 @@ const Viewer = () => {
 
   return (
     <>
+      <SEO
+        title={book ? book.titulo : ""}
+        description={
+          book
+            ? `${book.description}`
+            : "Leia livros gratuitos em nosso site."
+        }
+        image={book?.capa}
+        shouldIndexPage={true}
+      />
       <div className=" overflow-hidden">
         <header className=" bg-white h-16 py-2 px-4 flex justify-between items-center">
           <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -239,19 +251,23 @@ const Viewer = () => {
 
           <main className="w-full h-full relative">
             <div className="w-full bg-slate-100 h-full">
-              <AdBanner
-                dataAdFormat="auto"
-                dataAdSlot="2423907456"
-                customClassName="mb-2 pt-2"
-              />
               {/* {JSON.stringify(book)} */}
-              <section className="w-full bg-slate-100 p-4 pb-96 h-full overflow-auto flex justify-center items-start">
-                <Document
-                  file={urlPdf}
-                  loading={<Loading label="Carregando PDF" />}
-                >
-                  <Page pageNumber={currentPage} scale={zoomLevel} />
-                </Document>
+              <section className="w-full bg-slate-100 p-4 pb-96 h-full overflow-auto ">
+                <AdBanner
+                  dataAdFormat="auto"
+                  dataAdSlot="9774541568"
+                  customClassName="mb-2 pt-2"
+                />
+                <div className="flex justify-center items-center">
+                  <AdBannerVertical dataAdSlot="" />
+                  <Document
+                    file={urlPdf}
+                    loading={<Loading label="Carregando PDF" />}
+                  >
+                    <Page pageNumber={currentPage} scale={zoomLevel} />
+                  </Document>
+                  <AdBannerVertical dataAdSlot="3432494495" />
+                </div>
                 <div className="h-[300px]"></div>
               </section>
             </div>
