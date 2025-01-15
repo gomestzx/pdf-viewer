@@ -12,7 +12,6 @@ import { FaChevronLeft } from "react-icons/fa";
 import useIsMobile from "../hooks/useIsMobile";
 import { useSearchParams } from "react-router-dom";
 import { useFetchBook } from "../hooks/useFetchBook";
-import AdBannerVertical from "../components/Loading/AdBannerVertical";
 import SEO from "../components/SEO";
 import AdBannerMobile from "../components/AdBanner/AdBannerMobile";
 
@@ -265,14 +264,23 @@ const Viewer = () => {
                 )}
 
                 <div className="flex justify-center items-center">
-                  <AdBannerVertical dataAdSlot="" />
+                  <AdBanner
+                    dataAdSlot="9774541568"
+                    vertical={true}
+                    customClassName="mt-2"
+                  />
                   <Document
                     file={urlPdf}
                     loading={<Loading label="Carregando PDF" />}
                   >
                     <Page pageNumber={currentPage} scale={zoomLevel} />
                   </Document>
-                  <AdBannerVertical dataAdSlot="3432494495" />
+
+                  <AdBanner
+                    dataAdSlot="3432494495"
+                    vertical={true}
+                    customClassName="mt-2"
+                  />
                 </div>
                 <AdBanner dataAdSlot="4793677624" customClassName="mt-2" />
                 <div className="h-[300px]"></div>

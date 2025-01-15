@@ -7,6 +7,7 @@ const AdBanner = ({
   dataAdFormat,
   dataFullWidthResponsive,
   fixed,
+  vertical,
   customClassName,
 }) => {
   useEffect(() => {
@@ -28,8 +29,8 @@ const AdBanner = ({
       style={fixed ? { backgroundColor: "#000" } : {}}
     >
       <ins
-        className="adsbygoogle bg-gray-600 rounded-lg"
-        style={{ display: "inline-block", width: 728, height: 90 }}
+        className={`adsbygoogle ${!vertical && 'bg-gray-300'} rounded-lg`}
+        style={{ display: "inline-block", width: vertical? 120 : 728, height: vertical ? 728 : 90 }}
         data-ad-client="ca-pub-2529229033686497"
         data-ad-slot={dataAdSlot}
         // data-ad-format={dataAdFormat}
