@@ -225,13 +225,14 @@ const Viewer = () => {
                       onClick={() => setCurrentPage(thumbnailPage)}
                       className={`border-[2px] cursor-pointer relative rounded my-2 ${
                         currentPage === thumbnailPage ? "border-main-400" : ""
-                      } ${index === 0 && "mt-4"}`}
+                      } ${index === 0 && "mt-4"} ${index + 1 === totalPages ? 'mb-24' : ''}`}
                     >
                       <Page height={180} pageNumber={thumbnailPage} />
                     </div>
                   );
                 })}
               </Document>
+              
             </div>
           </aside>
           {isAsideOpen ? (
