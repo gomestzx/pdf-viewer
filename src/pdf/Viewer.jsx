@@ -263,7 +263,7 @@ const Viewer = () => {
                   />
                 )}
 
-                <div className="flex justify-center items-center">
+                <div className="flex justify-center">
                   <AdBanner
                     dataAdSlot="9774541568"
                     vertical={true}
