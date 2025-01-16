@@ -4,6 +4,13 @@
   font-family: "Lexend", serif;
 }
 
+.bg-blured {
+  background-image: url('https://livrosgratuitos.com/_next/static/media/background.c48aab92.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50%;
+}
+
 .App {
   text-align: center;
 }
@@ -43,3 +50,4 @@
     transform: rotate(360deg);
   }
 }
+
