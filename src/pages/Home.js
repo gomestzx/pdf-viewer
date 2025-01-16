@@ -1,11 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../components/Navbar/Navbar";
 import SEO from "../components/SEO";
 import { useFetchPDFs } from "../hooks/useFetchPDFs";
 import Footer from "../components/Footer/Footer";
 
+const Skeleton = () => (
+  <div className="animate-pulse flex-shrink-0 w-40 h-64 bg-gray-700 rounded-md"></div>
+);
+
 const Home = () => {
   const { PDFs, isLoading } = useFetchPDFs();
+  const [imageLoaded, setImageLoaded] = useState({});
+
+  const handleImageLoad = (id) => {
+    setImageLoaded((prev) => ({ ...prev, [id]: true }));
+  };
 
   return (
     <>
@@ -41,33 +50,41 @@ const Home = () => {
             download para aproveitar essas obras clássicas onde e quando quiser,
             sem nenhum custo.
           </p>
-          <div className=" flex justify-center items-center gap-4 flex-wrap mt-6">
-            {PDFs.map((item) => (
-              <>
-                <a href={`/livro?id=${item._id}`}>
-                  <div className="flex-shrink-0 w-40 shadow-lg flex flex-col justify-center items-center">
-                    <img
-                      src={item.capa}
-                      style={{ width: 160, height: "auto" }}
-                      className="h-full object-cover rounded-md"
-                      alt=""
-                    />
-                    <div className="flex flex-col justify-between p-4 w-full mt-2">
-                      <div className="flex flex-col justify-center items-center h-12">
-                        <h1 className="text-sm text-center font-bold text-white leading-4">
-                          {item.titulo}
-                        </h1>
-                        {item.autor && (
-                          <span className="text-sm text-white mt-1 text-center font-lexend font-light">
-                            {item.autor}
-                          </span>
-                        )}
+          <div className="flex justify-center items-center gap-4 flex-wrap mt-6">
+            {isLoading || !PDFs.length
+              ? Array.from({ length: 6 }).map((_, index) => <Skeleton key={index} />)
+              : PDFs.map((item) => (
+                  <a href={`/livro?id=${item._id}`} key={item._id}>
+                    <div className="flex-shrink-0 w-40 shadow-lg flex flex-col justify-center items-center">
+                      {!imageLoaded[item._id] && <Skeleton />}
+                      <img
+                        src={item.capa}
+                        style={{ width: 160, height: "auto" }}
+                        className={`h-full object-cover rounded-md ${
+                          !imageLoaded[item._id] ? "hidden" : ""
+                        }`}
+                        alt=""
+                        onLoad={() => handleImageLoad(item._id)}
+                      />
+                      <div
+                        className={`flex flex-col justify-between p-4 w-full mt-2 ${
+                          !imageLoaded[item._id] ? "hidden" : ""
+                        }`}
+                      >
+                        <div className="flex flex-col justify-center items-center h-12">
+                          <h1 className="text-sm text-center font-bold text-white leading-4">
+                            {item.titulo}
+                          </h1>
+                          {item.autor && (
+                            <span className="text-sm text-white mt-1 text-center font-lexend font-light">
+                              {item.autor}
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </a>
-              </>
-            ))}
+                  </a>
+                ))}
           </div>
           <Footer />
         </div>
