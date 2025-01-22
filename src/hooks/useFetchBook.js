@@ -13,7 +13,9 @@ export const useFetchBook = (id) => {
       if (!id) return null;
       const cookies = document.cookie.split("; ");
       const token = cookies.find((cookie) => cookie.startsWith("userToken="));
+      console.log(token, 'token');
       const userId = await getUserIdFromToken();
+      console.log(userId, 'userId')
       const url = token
         ? `${urlApi}/livros/${id}/${userId}`
         : `${urlApi}/livros/public/${id}`;
