@@ -12,7 +12,8 @@ export const useFetchBook = (id) => {
     try {
       if (!id) return null;
       const cookies = document.cookie.split("; ");
-      const token = cookies.find((cookie) => cookie.startsWith("userToken="));
+      const tokenCookie = cookies.find(cookie => cookie.startsWith("userToken="));
+      const token = tokenCookie ? tokenCookie.split("=")[1] : null;      
       console.log(token, 'token');
       const userId = await getUserIdFromToken();
       console.log(userId, 'userId')
