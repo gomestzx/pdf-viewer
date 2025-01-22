@@ -9,8 +9,6 @@ const useAuth = () => {
         const cookies = document.cookie.split("; ");
         const userToken = cookies.find((cookie) => cookie.startsWith("userToken="));
         setIsAuth(userToken !== undefined);
-        console.log(userToken);
-        console.log('aqui')
       }
     };
 

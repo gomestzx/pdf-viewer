@@ -32,26 +32,13 @@ const Viewer = () => {
   }, []);
 
   useEffect(() => {
-    const fetchUserId = async () => {
-      const userId = await getUserIdFromToken();
-      if (userId) {
-        console.log("ID do usuário encontrado:", userId);
-      } else {
-        console.log("Nenhum ID de usuário encontrado.");
-      }
-    };
-
-    fetchUserId();
-  }, []);
-
-  useEffect(() => {
     if (isMobile) {
       setZoomLevel(0.5);
     }
   }, [isMobile]);
 
   const handleDocumentLoadSuccess = (document) => {
-    console.log("PDF loaded: ", document.numPages);
+
     setTotalPages(document.numPages);
   };
 
@@ -61,7 +48,6 @@ const Viewer = () => {
 
   const zoomOut = () => {
     setZoomLevel((prevZoom) => Math.max(prevZoom - 0.2, 0.5));
-    console.log(zoomLevel);
   };
 
   const changePage = (direction) => {
