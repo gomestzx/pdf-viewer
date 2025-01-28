@@ -38,7 +38,6 @@ const Viewer = () => {
   }, [isMobile]);
 
   const handleDocumentLoadSuccess = (document) => {
-
     setTotalPages(document.numPages);
   };
 
@@ -55,7 +54,6 @@ const Viewer = () => {
       if (currentPage === 1) return null;
       setCurrentPage((prevPage) => prevPage - 1);
     } else if (direction === "next") {
-
       if (currentPage === totalPages) return null;
       setCurrentPage((prevPage) => prevPage + 1);
     }
@@ -67,6 +65,7 @@ const Viewer = () => {
   const { book } = useFetchBook(bookId ?? "");
 
   useEffect(() => {
+    console.log(book);
     if (book && book.pdf !== "") {
       setUrlPdf(book.pdf ?? PDF_URL);
     }
@@ -211,14 +210,15 @@ const Viewer = () => {
                       onClick={() => setCurrentPage(thumbnailPage)}
                       className={`border-[2px] cursor-pointer relative rounded my-2 ${
                         currentPage === thumbnailPage ? "border-main-400" : ""
-                      } ${index === 0 && "mt-4"} ${index + 1 === totalPages ? 'mb-24' : ''}`}
+                      } ${index === 0 && "mt-4"} ${
+                        index + 1 === totalPages ? "mb-24" : ""
+                      }`}
                     >
                       <Page height={180} pageNumber={thumbnailPage} />
                     </div>
                   );
                 })}
               </Document>
-              
             </div>
           </aside>
           {isAsideOpen ? (
@@ -273,7 +273,18 @@ const Viewer = () => {
                   />
                 </div>
                 <AdBanner dataAdSlot="4793677624" customClassName="mt-2" />
-                <div className="h-[300px]"></div>
+                <div className="h-[200px]"></div>
+                <div className=" w-4/5 mx-auto gap-2 lg:gap-4 flex-col lg:flex-row flex justify-center items-center ">
+                  <div className="w-full flex  lg:w-[20%] justify-center items-center">
+                    <img src={book?.capa} className="w-36" alt="" />
+                  </div>
+                  <div className=" w-full  lg:w-[80%] flex flex-col gap-1 justify-center lg:justify-start items-center lg:items-start">
+                    {" "}
+                    <h1 className=" text-3xl">{book?.titulo}</h1>
+                    <p>{book?.autor}</p>
+                    <p className=" text-sm font-light">{book?.descricao}</p>
+                  </div>
+                </div>
               </section>
             </div>
             {/* Absolute desktop */}
