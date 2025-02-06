@@ -59,7 +59,11 @@ const Viewer = () => {
     }
     const topoElement = document.getElementById("top");
     if (topoElement) {
-      topoElement.scrollIntoView({ behavior: "smooth", block: "start" });
+      topoElement.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      setTimeout(() => {
+        window.scrollBy({ top: -80, behavior: "smooth" });
+      }, 300); 
     }
   };
 
@@ -294,9 +298,13 @@ const Viewer = () => {
                   </div>
                   <div className=" w-full  lg:w-[80%] flex flex-col justify-center lg:justify-start items-center lg:items-start">
                     {" "}
-                    <h1 className=" text-lg text-center lg:text-start lg:text-2xl">{book?.titulo}</h1>
+                    <h1 className=" text-lg text-center lg:text-start lg:text-2xl">
+                      {book?.titulo}
+                    </h1>
                     <p className=" text-base">{book?.autor}</p>
-                    <p className=" text-sm font-light mt-2">{book?.descricao}</p>
+                    <p className=" text-sm font-light mt-2">
+                      {book?.descricao}
+                    </p>
                   </div>
                 </div>
               </section>
