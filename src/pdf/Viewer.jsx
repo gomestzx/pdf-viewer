@@ -248,7 +248,7 @@ const Viewer = () => {
 
           <main className="w-full h-full relative">
             <div className="w-full bg-slate-100 h-full">
-              <section className="w-full bg-slate-100 p-4 pb-96 h-full overflow-auto ">
+              <section className="w-full bg-slate-100 p-4 pb-60 h-full overflow-auto ">
                 <AdBanner
                   dataAdFormat="auto"
                   dataAdSlot="9774541568"
@@ -282,16 +282,16 @@ const Viewer = () => {
                   />
                 </div>
                 <AdBanner dataAdSlot="4793677624" customClassName="mt-2" />
-                <div className="h-[200px]"></div>
-                <div className=" w-4/5 mx-auto gap-2 lg:gap-4 flex-col lg:flex-row flex justify-center items-center ">
-                  <div className="w-full flex  lg:w-[20%] justify-center items-center">
-                    <img src={book?.capa} className="w-36" alt="" />
+                <div className="h-[200px] lg:h-[20px]"></div>
+                <div className=" bg-white w-4/5 mx-auto gap-2 lg:gap-4 flex-col lg:flex-row flex justify-start p-3 rounded-lg items-center ">
+                  <div className="w-full lg:w-auto flex justify-center items-center">
+                    <img src={book?.capa} className="w-36 rounded-lg" alt="" />
                   </div>
-                  <div className=" w-full  lg:w-[80%] flex flex-col gap-1 justify-center lg:justify-start items-center lg:items-start">
+                  <div className=" w-full  lg:w-[80%] flex flex-col justify-center lg:justify-start items-center lg:items-start">
                     {" "}
-                    <h1 className=" text-3xl">{book?.titulo}</h1>
-                    <p>{book?.autor}</p>
-                    <p className=" text-sm font-light">{book?.descricao}</p>
+                    <h1 className=" text-lg text-center lg:text-start lg:text-2xl">{book?.titulo}</h1>
+                    <p className=" text-base">{book?.autor}</p>
+                    <p className=" text-sm font-light mt-2">{book?.descricao}</p>
                   </div>
                 </div>
               </section>
