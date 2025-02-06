@@ -156,6 +156,8 @@ const Viewer = () => {
               >
                 <BiZoomOut size={20} />
               </button>
+              <span className=" text-gray-700">{zoomLevel.toFixed(2)}</span>
+
               <button
                 onClick={zoomIn}
                 className=" text-black px-3 cursor-pointer py-3 rounded-full flex justify-center items-center gap-2"
