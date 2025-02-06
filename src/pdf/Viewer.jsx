@@ -57,6 +57,10 @@ const Viewer = () => {
       if (currentPage === totalPages) return null;
       setCurrentPage((prevPage) => prevPage + 1);
     }
+    const topoElement = document.getElementById("top");
+    if (topoElement) {
+      topoElement.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   };
 
   const [searchParams] = useSearchParams();
@@ -249,6 +253,7 @@ const Viewer = () => {
           <main className="w-full h-full relative">
             <div className="w-full bg-slate-100 h-full">
               <section className="w-full bg-slate-100 p-4 pb-60 h-full overflow-auto ">
+                <div id="top"></div>
                 <AdBanner
                   dataAdFormat="auto"
                   dataAdSlot="9774541568"
